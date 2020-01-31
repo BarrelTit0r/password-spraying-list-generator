@@ -101,10 +101,8 @@ def generate_organizational_passwords(now, organization):
             organization + now.strftime("%Y"),
             organization + "123",
             organization + "1!",
-            organization + "19",
-            organization + "20",
-            organization + "19!",
-            organization + "20!",
+            organization + str(int(now.strftime("%Y")))[2:],
+            organization + str(int(now.strftime("%Y")))[2:] + "!",
             organization + ".1",
             organization + "!"
     ]
