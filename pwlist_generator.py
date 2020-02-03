@@ -119,12 +119,16 @@ def generate_monthly_passwords(now):
 def generate_standard_passwords(now):
     return [
             "Welcome123",
+            "Weclome123!",
+            "Welcome12345",
+            "Wecome12345!",
             "Welcome" + now.strftime("%Y"),
             "Welcome" + now.strftime("%Y")[2:4],
             "Welcome" + now.strftime("%Y") + "!",
             "Welcome" + now.strftime("%Y")[2:4] + "!",
             "Welcome1!",
             "Welcome1",
+            "Password!",
             "Password1",
             "Password1!",
             "Password" + now.strftime("%Y"),
@@ -134,6 +138,14 @@ def generate_standard_passwords(now):
             "Pa55word",
             "P@ssword",
             "Passw0rd",
+            "Password123",
+            "Password123!",
+            "Password12345",
+            "Password12345!",
+            "Changeme!",
+            "Changeme123!",
+            "Changeme12345",
+            "Changeme12345!"
         ]
 
 def main():
