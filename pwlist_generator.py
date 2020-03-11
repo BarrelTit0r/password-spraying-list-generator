@@ -99,7 +99,10 @@ def generate_seasonal_passwords(now, hemisphere):
 def generate_organizational_passwords(now, organization):
     return [
             organization + now.strftime("%Y"),
+            organization + now.strftime("%Y") + "!",
             organization + "123",
+            organization + "1",
+            organization + "2",
             organization + "1!",
             organization + str(int(now.strftime("%Y")))[2:],
             organization + str(int(now.strftime("%Y")))[2:] + "!",
