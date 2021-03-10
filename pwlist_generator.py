@@ -96,19 +96,31 @@ def generate_seasonal_passwords(now, hemisphere):
 
     return passwords
 
-def generate_organizational_passwords(now, organization):
-    return [
-            organization + now.strftime("%Y"),
-            organization + now.strftime("%Y") + "!",
-            organization + "123",
-            organization + "1",
-            organization + "2",
-            organization + "1!",
-            organization + str(int(now.strftime("%Y")))[2:],
-            organization + str(int(now.strftime("%Y")))[2:] + "!",
-            organization + ".1",
-            organization + "!"
-    ]
+def generate_keyword_passwords(now, keyword_file):
+    keywords = list()
+
+    with open(keyword_file, 'r') as reader:
+        keywords.extend(reader.readlines())
+    
+    keyword_passwords = list()
+
+    #Go through each keyword in the file and add standard modifications
+    for keyword in keywords:
+        keyword = keyword.strip()
+        keyword_passwords.extend([
+            keyword + now.strftime("%Y"),
+            keyword + now.strftime("%Y") + "!",
+            keyword + "123",
+            keyword + "1",
+            keyword + "2",
+            keyword + "1!",
+            keyword + str(int(now.strftime("%Y")))[2:],
+            keyword + str(int(now.strftime("%Y")))[2:] + "!",
+            keyword + ".1",
+            keyword + "!"
+        ])
+
+    return keyword_passwords
 
 def generate_monthly_passwords(now):
     passwords = []
@@ -155,13 +167,13 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--hemisphere", help="Determines what seasons to use. N for northern, S for southern.", choices=["S","N"], default="N")
-    parser.add_argument("organization", help="Nickname for the organization. Used in generating passwords based on the organization name.")
+    parser.add_argument("keyword_file", help="Path to a file with newline-delimited keywords (organization name, location, professional local sports teams, industry buzzwords). Used in generating customized passwords.")
     args = parser.parse_args()
     
     passwords = []
     now = date.today()
     passwords.extend(generate_seasonal_passwords(now, args.hemisphere))
-    passwords.extend(generate_organizational_passwords(now, args.organization))
+    passwords.extend(generate_keyword_passwords(now, args.keyword_file))
     passwords.extend(generate_monthly_passwords(now))
     passwords.extend(generate_standard_passwords(now))
     for password in passwords:
